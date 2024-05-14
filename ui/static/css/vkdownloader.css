@@ -1,0 +1,148 @@
+h1 {
+    font-family: Verdana;
+    font-weight: normal;
+    font-size: 32px;
+    color: #7b7bc0;
+}
+
+body {
+    background-color: #FFFEAC;
+}
+
+table {
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    word-break: break-all;
+}
+
+.sort_asc {
+    background-color: #f64b7d;
+}
+
+.sort_desc {
+    background-color: #7c88e7;
+}
+
+.menu {
+    
+    display: inline-block; /* make the nav element display inline with other elements */
+    position: relative; /* set the nav element as the relative reference for the absolute positioning of the span element */
+    margin-top: 10px; /* add a margin-top to the nav element */
+    margin-right: 20px; /* add a margin-right to the nav element */
+    padding: 5px;
+    font-family: Consolas, Menlo, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace, serif;
+    font-weight: normal;
+    font-size: 20px;
+    background-color: #a0a0FF;
+}
+
+.menuitem {
+	
+}
+.selmenuitem {
+    background-color: #f0f0f0;
+}
+.menuitem:hover {
+	background-color: #f0f090;
+}
+.selmenuitem:hover {
+    background-color: #f0f090;
+}
+
+#tasksctl {
+    position: fixed; /* set the span element as a fixed position */
+    top: 10px; /* position the span element at the top */
+    right: 20px; /* position the span element at the right edge of the browser */
+    background-color: #a0FFa0;
+}
+
+#statusbar {
+    display: inline-block;
+    width: 250px;
+}
+#controlbtn {
+    /* display: inline-block; */
+    width: 100px;
+}
+.ctlbar {
+	margin-top: 5px;
+    margin-bottom: 5px;
+    border-radius: 5px;
+    border: 2px solid #7f7fff;
+    padding: 2px;    
+    background-color: #Afdcdc;
+}
+.flexctr {
+    display: flex;
+}
+.flexinput {
+    flex-grow: 1;
+}
+.navbar {
+    margin-top: 5px;
+    margin-bottom: 5px;
+    border-radius: 5px;
+    border: 2px solid #73AD21;
+    padding: 2px;    
+    background-color: #fffc90;
+}
+.navbar:last-child {
+	flex-grow: 1;
+}
+.navtext {
+    display: inline-block;
+    width: 100px;
+}
+.navitem {
+	display: inline-block;
+    width: 100px;
+    text-align: center;
+    background-color: #ffbec7;
+}
+.navitem:hover {
+    background-color: #3374C2;
+}
+.slider {
+	margin: 2px;
+	padding: 2px;
+	border: 1px solid #777777;
+	border-radius: 3px;
+}
+.tag {
+	background-color: #ffff99;
+}
+.tag:hover {
+    background-color: #9999ff;
+}
+
+
+.mediaList {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.mediaTile {
+    box-sizing: border-box;
+    height: 200px;
+    width: auto;
+    padding: 20px;
+    margin: 5px;
+    border-style: outset;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    overflow: hidden;
+    flex-direction: column;
+}
+
+.mediaTile .mediaData {
+    max-height: 100%;
+    max-width: 100%;
+    object-fit: contain;
+}
+
+.mediaTile .mediaInfo {
+    margin-top: auto;
+}

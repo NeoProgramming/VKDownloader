@@ -1,0 +1,35 @@
+{{define "content"}}
+<h1>VK Photo Downloader</h1>
+<h3>If you run this app form new IP, follow this link, enable app, copy URL and paste this into input form</h3>
+<form>
+Your App ID:<br>
+<input type="text" id="app_id" placeholder="Enter App ID" value="{{.AppID}}"></input>
+<button  type="button" onclick="openURL(event)">Open VK auth link</button>
+</form>
+<h3>Input URL from browser address line to input form:</h3>
+<form>
+Input VK URL:<br>
+    <textarea id="app_url" style="width: 50%;" rows="5"></textarea>
+    <br><button onclick="postURL(event)">Authorize</button>
+</form>
+<h3>Your data</h3>
+<table border='1' style='border-collapse: collapse;'>
+	<colgroup>
+        <col span="1" style="width: 15ch;">
+        <col span="1">
+    </colgroup>
+    <tr><td>Access Token</td><td>{{.AppURL}}</td></tr>
+    <tr><td>Recent IP</td><td>{{.RecentIP}}</td></tr>
+    <tr><td>Current IP</td><td>{{.CurrentIP}}</td></tr>
+    <tr><td>VK authorized</td><td>{{.VKConnected}}</td></tr>
+    <tr><td>Save path</td><td>{{.SavePath}}</td></tr>
+</table>
+<h3>Download album</h3>
+    <input type="text" id="album" placeholder="Enter Album URL" value=""></input>
+    <button type="button" onclick="downloadAlbum(document.getElementById('album').value)">Download</button>
+<p><hr></p>
+<form action="/exit" method="post">
+    <input type="submit" value="Exit Server App">
+</form>
+
+{{end}}
