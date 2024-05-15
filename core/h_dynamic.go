@@ -6,7 +6,6 @@ import (
 	"vkdownloader/cfmt"
 )
 
-// AJAX - setting the application ID
 func (app *Application) setAppId(w http.ResponseWriter, r *http.Request) {
 	cfmt.PrintlnFunc("setAppId")
 	if r.Method == http.MethodPost {
@@ -20,7 +19,6 @@ func (app *Application) setAppId(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusMethodNotAllowed)
 }
 
-// AJAX - setting the access token
 func (app *Application) setAppToken(w http.ResponseWriter, r *http.Request) {
 	cfmt.PrintlnFunc("setAppToken")
 	if r.Method == http.MethodPost {
@@ -39,7 +37,6 @@ func (app *Application) setAppToken(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusMethodNotAllowed)
 }
 
-// AJAX - running a worker goroutine
 func (app *Application) startWorker(w http.ResponseWriter, r *http.Request) {
 	if app.vk == nil {
 		InitVK()
@@ -47,13 +44,13 @@ func (app *Application) startWorker(w http.ResponseWriter, r *http.Request) {
 	if !app.running {
 		app.running = true
 		app.wg.Add(1)
-		go app.worker()
+		album := r.FormValue("id")
+		go app.worker(album)
 		fmt.Fprint(w, "true")
-		cfmt.PrintlnImp("Worker started")
+		cfmt.PrintlnImp("Worker started: ", album)
 	}
 }
 
-// AJAX - stopping a worker goroutine
 func (app *Application) stopWorker(w http.ResponseWriter, r *http.Request) {
 	if app.running {
 		app.running = false

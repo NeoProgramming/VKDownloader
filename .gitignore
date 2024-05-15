@@ -13,7 +13,7 @@ dist/
 *.db
 *.geany
 *.txt
-vkexplorer
+vkdownloader
 /*.db-shm
 /*.db-wal
 /*.zip

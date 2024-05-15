@@ -10,13 +10,10 @@ import (
 
 type Application struct {
 	config Configuration
-	//	errorLog        *log.Logger
+	
 	srv *http.Server
 	vk  *api.VK
-
-	tickCounter     int
-	taskCounter     int
-	completeCounter int
+	
 	totalItems      int
 	currentItem     int
 	running         bool
