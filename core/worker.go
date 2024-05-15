@@ -35,10 +35,10 @@ func (app *Application) worker(album string) {
 	owner_id, _ := strconv.Atoi(parts[0])
 	album_id, _ := strconv.Atoi(parts[1])
 	
-	fmt.Println("owner_id: ", owner_id)
-	fmt.Println("album_id: ", album_id)
+	fmt.Println("owner_id: ", parts[0])
+	fmt.Println("album_id: ", parts[1])
 	
-	fileName := "album" + strconv.Itoa(owner_id) + "_" + strconv.Itoa(album_id)
+	fileName := "album" + parts[0] + "_" + parts[1]
 	albumPath := path.Join(app.config.SavePath, fileName)
 	err := os.Mkdir(albumPath, 0755)
 	if err!= nil && !os.IsExist(err) {
@@ -50,7 +50,7 @@ func (app *Application) worker(album string) {
 	imageLinks := app.getPhotosList(owner_id, album_id)
 	fmt.Println("images count: ", len(imageLinks))
 	for i, item := range imageLinks {
-		fileName := "photo" + strconv.Itoa(owner_id) + "_" + strconv.Itoa(item.id) + ".jpg"
+		fileName := "photo" + parts[0] + "_" + strconv.Itoa(item.id) + ".jpg"
 		fullPath := path.Join(albumPath, fileName)
 		fmt.Println(i, "-->", fullPath) 
 		

@@ -26,11 +26,11 @@ Input VK URL:<br>
 </table>
 <h3>Download album</h3>
     <input type="text" id="album" placeholder="Enter Album URL" value=""></input>
-    <button type="button" onclick="postQueryARG('/start-worker',document.getElementById('album').value)">Download</button>
-    <button type="button" onclick="postQuery('/stop-worker')">Stop</button>
+    <button type="button" onclick="postQueryARG('/download-album',document.getElementById('album').value)">Download</button>
+<h3>Download all albums</h3>
+    <input type="text" id="owner" placeholder="Enter Owner URL" value=""></input>
+    <button type="button" onclick="postQueryARG('/download-owner',document.getElementById('owner').value)">Download</button>
 <p><hr></p>
-<form action="/exit" method="post">
-    <input type="submit" value="Exit Server App">
-</form>
-
+<button type="button" onclick="postQuery('/stop-worker')">Stop downloading</button>
+<button type="button" onclick="postQuery('/exit')">Exit Server App</button>
 {{end}}

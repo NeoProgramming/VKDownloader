@@ -22,9 +22,11 @@ func (app *Application) routes() *http.ServeMux {
 	// POST handlers
 	mux.HandleFunc("/set-app-id", app.setAppId)
 	mux.HandleFunc("/set-app-url", app.setAppToken)
-	mux.HandleFunc("/start-worker", app.startWorker)
+	mux.HandleFunc("/download-album", app.downloadAlbum)
+	mux.HandleFunc("/download-owner", app.downloadOwner)
 	mux.HandleFunc("/stop-worker", app.stopWorker)
 	mux.HandleFunc("/get-ip", app.getIP)
+	mux.HandleFunc("/exit", app.exit)
 
 	cfmt.PrintlnOk("Routes initialized")
 	return mux

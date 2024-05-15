@@ -37,7 +37,7 @@ func (app *Application) setAppToken(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusMethodNotAllowed)
 }
 
-func (app *Application) startWorker(w http.ResponseWriter, r *http.Request) {
+func (app *Application) downloadAlbum(w http.ResponseWriter, r *http.Request) {
 	if app.vk == nil {
 		InitVK()
 	}
@@ -46,10 +46,27 @@ func (app *Application) startWorker(w http.ResponseWriter, r *http.Request) {
 		app.wg.Add(1)
 		album := r.FormValue("id")
 		go app.worker(album)
+
 		fmt.Fprint(w, "true")
 		cfmt.PrintlnImp("Worker started: ", album)
 	}
 }
+
+func (app *Application) downloadOwner(w http.ResponseWriter, r *http.Request) {
+	if app.vk == nil {
+		InitVK()
+	}
+	if !app.running {
+		app.running = true
+		app.wg.Add(1)
+		owner := r.FormValue("id")
+		go app.worker(owner)
+
+		fmt.Fprint(w, "true")
+		cfmt.PrintlnImp("Worker started: ", album)
+	}
+}
+
 
 func (app *Application) stopWorker(w http.ResponseWriter, r *http.Request) {
 	if app.running {
@@ -64,4 +81,18 @@ func (app *Application) getIP(w http.ResponseWriter, r *http.Request) {
 	app.config.RecentIP = GetGlobalIP()
 	cfmt.PrintlnFunc("getIP: ", app.config.RecentIP)
 	fmt.Fprint(w, app.config.RecentIP)
+}
+
+// stop handler
+func (app *Application) exit(w http.ResponseWriter, r *http.Request) {
+	if r.Method == "POST" {
+		w.WriteHeader(200)
+		fmt.Fprint(w, "Shutting down the server...")
+		cfmt.PrintlnImp("Shutting down the server...")
+		go func() {
+			cfmt.PrintlnImp("Server stopped.")
+		}()
+	} else {
+		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
+	}
 }
