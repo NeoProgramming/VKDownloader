@@ -44,11 +44,17 @@ func (app *Application) downloadAlbum(w http.ResponseWriter, r *http.Request) {
 	if !app.running {
 		app.running = true
 		app.wg.Add(1)
-		album := r.FormValue("id")
-		go app.worker(album)
+		album_url := r.FormValue("id")
+
+		parts := parseAlbumUrl(album_url)
+		if parts == nil {
+			app.running = false
+			return
+		}
+		go app.processDownloadAlbum(parts[0], parts[1])
 
 		fmt.Fprint(w, "true")
-		cfmt.PrintlnImp("Worker started: ", album)
+		cfmt.PrintlnImp("Worker started: ", album_url)
 	}
 }
 
@@ -60,13 +66,12 @@ func (app *Application) downloadOwner(w http.ResponseWriter, r *http.Request) {
 		app.running = true
 		app.wg.Add(1)
 		owner := r.FormValue("id")
-		go app.worker(owner)
+		go app.processDownloadOwner(owner)
 
 		fmt.Fprint(w, "true")
-		cfmt.PrintlnImp("Worker started: ", album)
+		cfmt.PrintlnImp("Worker started: ", owner)
 	}
 }
-
 
 func (app *Application) stopWorker(w http.ResponseWriter, r *http.Request) {
 	if app.running {

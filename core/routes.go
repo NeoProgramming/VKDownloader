@@ -24,7 +24,7 @@ func (app *Application) routes() *http.ServeMux {
 	mux.HandleFunc("/set-app-url", app.setAppToken)
 	mux.HandleFunc("/download-album", app.downloadAlbum)
 	mux.HandleFunc("/download-owner", app.downloadOwner)
-	mux.HandleFunc("/stop-worker", app.stopWorker)
+	mux.HandleFunc("/stop-processDownloadOwner", app.stopWorker)
 	mux.HandleFunc("/get-ip", app.getIP)
 	mux.HandleFunc("/exit", app.exit)
 

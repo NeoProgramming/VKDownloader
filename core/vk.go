@@ -33,7 +33,7 @@ func LargestPhoto(photo *object.PhotosPhoto) string {
 	//cfmt.PrintlnFunc("LargestPhoto")
 	for _, s := range photo.Sizes {
 		size := s.Width * s.Height
-	//	cfmt.PrintlnLine("size = ", size)
+		//	cfmt.PrintlnLine("size = ", size)
 		if size > maxSize {
 			maxSize = size
 			maxUrl = s.URL
@@ -45,17 +45,42 @@ func LargestPhoto(photo *object.PhotosPhoto) string {
 
 type Photo struct {
 	url string
-	id int
+	id  int
 }
 
-func (app *Application) getPhotosList(oid int, aid int) []Photo {
+type Album struct {
+	id    int
+	title string
+}
+
+func (app *Application) getAlbumsList(oid string) []Album {
+
+	result, err := app.vk.PhotosGetAlbums(api.Params{
+		"owner_id": oid,
+	})
+	if err != nil {
+		fmt.Println("Error fetching albums:", err)
+		return nil
+	}
+
+	// Print the result
+	var albums []Album
+	for _, album := range result.Items {
+		fmt.Printf("Album ID: %d, Title: %s\n", album.ID, album.Title)
+		a := Album{album.ID, album.Title}
+		albums = append(albums, a)
+	}
+	return albums
+}
+
+func (app *Application) getPhotosList(oid string, aid string) []Photo {
 	cfmt.PrintlnFunc("loadPhotos: oid=", oid, " aid=", aid)
 	offset := 0
 	totalCount := 0
 	app.totalItems = 0
 	app.currentItem = 0
-	imageLinks := []Photo{}
-	
+	var imageLinks []Photo
+
 	for {
 		tStart := time.Now()
 
@@ -69,7 +94,7 @@ func (app *Application) getPhotosList(oid int, aid int) []Photo {
 		})
 		if err != nil {
 			cfmt.PrintlnErr("loadPhotos:", err)
-			break
+			return nil
 		}
 		received := len(photos.Items)
 		totalCount += received
@@ -103,21 +128,21 @@ func (app *Application) getPhotosList(oid int, aid int) []Photo {
 func downloadPhoto(url string, filename string) error {
 	// Create a new file
 	file, err := os.Create(filename)
-	if err!= nil {
+	if err != nil {
 		return fmt.Errorf("failed creating file: %w", err)
 	}
 	defer file.Close()
 
 	// Send a GET request to the photo URL
 	response, err := http.Get(url)
-	if err!= nil {
+	if err != nil {
 		return fmt.Errorf("failed getting photo: %w", err)
 	}
 	defer response.Body.Close()
 
 	// Copy the body content to the file
 	_, err = io.Copy(file, response.Body)
-	if err!= nil {
+	if err != nil {
 		return fmt.Errorf("failed copying photo to file: %w", err)
 	}
 
