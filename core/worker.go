@@ -14,9 +14,10 @@ func (app *Application) processDownloadOwner(owner_url string) {
 	defer app.wg.Done()
 	oid := parseOwnerUrl(owner_url)
 	albums := app.getAlbumsList(oid)
-	for _, album := range albums {
-		app.processDownloadAlbum(oid, strconv.Itoa(album.id))
-	}
+	//for _, album := range albums {
+	//	app.processDownloadAlbum(oid, strconv.Itoa(album.id))
+	//}
+	_ = albums
 }
 
 func parseOwnerUrl(owner_url string) string {
