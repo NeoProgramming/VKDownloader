@@ -30,16 +30,16 @@ func extractAccessToken(urlStr string) string {
 func LargestPhoto(photo *object.PhotosPhoto) string {
 	maxUrl := ""
 	maxSize := 0.0
-	//cfmt.PrintlnFunc("LargestPhoto")
+	cfmt.PrintlnFunc("LargestPhoto")
 	for _, s := range photo.Sizes {
 		size := s.Width * s.Height
-		//	cfmt.PrintlnLine("size = ", size)
+		cfmt.PrintlnLine("file=", s.URL, " size=", size, " w=", s.Width, " h=", s.Height)
 		if size > maxSize {
 			maxSize = size
 			maxUrl = s.URL
 		}
 	}
-	//cfmt.PrintlnFunc("LargestPhoto end: size=", maxSize)
+	cfmt.PrintlnFunc("LargestPhoto end: file=", maxUrl, " size=", maxSize)
 	return maxUrl
 }
 
@@ -109,7 +109,7 @@ func (app *Application) getPhotosList(oid string, aid string) []Photo {
 			image := Photo{maxUrl, photo.ID}
 			imageLinks = append(imageLinks, image)
 
-			//app.db.UpsertMedia(photo.OwnerID, photo.ID, photo.UserID)
+			cfmt.PrintlnLine("URL: ", maxUrl)
 		}
 
 		// if the received number of elements is less than the number in the package, then the package is the last
